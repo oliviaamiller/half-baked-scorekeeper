@@ -13,13 +13,15 @@ const finishGameButton = document.getElementById('finish-game-button');
 const teamOneLabel = document.getElementById('team-one-name');
 const teamTwoLabel = document.getElementById('team-two-name');
 
+const form = document.querySelector('form');
+
 // create an array to hold on to the state of past games
 const pastGamesArray = [];
 
-let name1 = '',
-let name2 =  '',
-let score1 = 0,
-let score2 = 0,
+let name1 = '';
+let name2 = '';
+let score1 = 0;
+let score2 = 0;
 
 nameForm.addEventListener('submit', (e) => {
     // don't forget to prevent the default form behavior!
@@ -29,12 +31,12 @@ nameForm.addEventListener('submit', (e) => {
     const data = new FormData(form);
 
     // set the state to this data from the form
-    teamOneName = data.get('team-one');
-    teamTwoName = data.get('team-two');
+    name1 = data.get('team-one');
+    name2 = data.get('team-two');
 
     // reset the form values
-    teamOneName = '';
-    teamTwoName = '';
+    name1 = '';
+    name2 = '';
 
     displayCurrentGameEl();
 });
@@ -71,21 +73,21 @@ finishGameButton.addEventListener('click', () => {
     // add the current game to an array of games in state.
     // HINT: it will be helpful to keep track of these games as objects with 4 properties, one for each piece of state we're tracking
     const addCurrentGame = { 
-        teamOne: teamOne,
-        teamTwo: teamTwo,
-        scoreOne: scoreOne,
-        scoreTwo: scoreTwo,
+        name1: name1,
+        name2: name2,
+        score1: score1,
+        score2: score2,
     };
 
-   pastGamesArray.push(addCurrentGame);
+    pastGamesArray.push(addCurrentGame);
 
     displayAllGames();
 
     // reset the initial state to start with a new form
-    teamOne = '';
-    teamTwo = '';
-    scoreOne = 0;
-    scoreTwo = 0;
+    name1 = '';
+    name2 = '';
+    score1 = 0;
+    score2 = 0;
 
     displayCurrentGameEl();
 });
@@ -96,10 +98,10 @@ function displayCurrentGameEl() {
     currentGameEl.textContent = '';
 
     // change the label to show team one's name;
-    teamOneLabel.textContent = teamOne;
+    teamOneLabel.textContent = name1;
 
     // change the label to show team two's name;
-    teamTwoLabel.textContent = teamTwo;
+    teamTwoLabel.textContent = name2;
 
     // call the render game function to create a game element
     
