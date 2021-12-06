@@ -35,8 +35,7 @@ nameForm.addEventListener('submit', (e) => {
     name2 = data.get('team-two');
 
     // reset the form values
-    name1 = '';
-    name2 = '';
+    nameForm.reset();
 
     displayCurrentGameEl();
 });
@@ -46,7 +45,8 @@ teamOneAddButton.addEventListener('click', () => {
     // increment the current state for team one's score
     score1++;
     
-    displayCurrentGameEl();});
+    displayCurrentGameEl();
+});
 
 teamTwoAddButton.addEventListener('click', () => {
     // increment the current state for team two's score
@@ -72,14 +72,14 @@ teamTwoSubtractButton.addEventListener('click', () => {
 finishGameButton.addEventListener('click', () => {
     // add the current game to an array of games in state.
     // HINT: it will be helpful to keep track of these games as objects with 4 properties, one for each piece of state we're tracking
-    const addCurrentGame = { 
+    const game = { 
         name1: name1,
         name2: name2,
         score1: score1,
         score2: score2,
     };
 
-    pastGamesArray.push(addCurrentGame);
+    pastGamesArray.push(game);
 
     displayAllGames();
 
@@ -104,17 +104,34 @@ function displayCurrentGameEl() {
     teamTwoLabel.textContent = name2;
 
     // call the render game function to create a game element
+    const game = { 
+        name1: name1,
+        name2: name2,
+        score1: score1,
+        score2: score2,
+    };
+
+    const div = renderGame(game);
+    console.log(div);
     
     // append the element to the cleared out current game div
+    currentGameEl.append(div);
 }
 
 
 function displayAllGames() {
     // clear out the past games list in the DOM
+    pastGamesEl.textContent = '';
 
     // loop through the past games in state
-    // render and append a past game for each past game in state
+    for (let pastGame of pastGamesArray) {
+        const container = renderGame(pastGame);
+
+// render and append a past game for each past game in state
+        pastGamesEl.append(container);
+    }
+    
 }
 
 
-displayCurrentGameEl();
+// displayCurrentGameEl();
